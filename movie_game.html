@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Movie</title>
+    <style>
+        body { 
+text-align: center; 
+font-family: Arial, sans-serif; 
+background-color:lightblue;
+padding:200px;
+}
+        img { width: 300px; height: auto; margin-bottom: 10px; }
+        input { padding: 10px; margin: 10px; }
+        button { padding: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Guess the Movie Name</h1>
+    <img id="movieImage" src="" alt="Movie Image">
+    <br>
+    <input type="text" id="userGuess" placeholder="Enter movie name">
+    <button onclick="checkAnswer()"; hover:black;>Submit</button>
+    <p id="result"></p>
+
+    <script>
+        const movies = [
+            { name: "titanic", image: "https://www.usatoday.com/gcdn/-mm-/2b1595946dbb7622103d770376ea63c0315d98f4/c=0-53-1497-899/local/-/media/2017/11/28/USATODAY/USATODAY/636474709931309319-AP-THEATER-TITANIC-64392358.JPG?width=1497&height=843&fit=crop&format=pjpg&auto=webp" },
+            { name: "inception", image: "https://static1.srcdn.com/wordpress/wp-content/uploads/2023/04/inception-characters-film-crew.jpg" },
+             { name: "ice age", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ42brErgNozjBkZ1D1jkFxTO-HZqjbNr1Ow&s" },
+            { name: "up", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFu5JWJ8jpUYfp5bc46Qj91PnSjeKstGaE4A&s" },
+            { name: "shang chi", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN6uOvSXsinpdkbhqlIW3KSBZ9i9_xx_EEtA&s" }
+	   
+
+        ];
+
+        let currentMovieIndex = 0;
+
+        function loadMovie() {
+            document.getElementById("movieImage").src = movies[currentMovieIndex].image;
+        }
+
+        function checkAnswer() {
+            let userGuess = document.getElementById("userGuess").value.trim().toLowerCase();
+            let correctAnswer = movies[currentMovieIndex].name.toLowerCase();
+
+            if (userGuess === correctAnswer) {
+                document.getElementById("result").innerText = "Correct! 🎉";
+                currentMovieIndex = (currentMovieIndex + 1) % movies.length;
+                setTimeout(loadMovie, 500);
+            } else {
+                document.getElementById("result").innerText = "Wrong! Try again. ❌";
+            }
+
+            document.getElementById("userGuess").value = "";
+        }
+
+        window.onload = loadMovie;
+    </script>
+</body>
+</html>
